@@ -1,7 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include "opcodes.h"
 
+std::string decode(unsigned char *opcode) {
+	char index = opcode[0] & 0xF0 >> 4; // Primera cifra hex del primer byte
+	//if (index < 0 || index > 15) {
+	if (index != 0) {
+		return OPCODE_NOT_VALID;
+	}
+	return decode_functions[index](opcode); // Array de funciones dependiendo de la primera cifra de la instrucci√n
+}
 std::streampos fileSize(std::ifstream& file) {
 	std::streampos fsize;
 	
@@ -31,7 +40,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	int fsize = fileSize(file);
-	cout << "Reading " << argv[1] << " (" << fsize << " bytes)" << endl;
+	cout << "File: " << argv[1] << " (" << fsize << " bytes)" << endl;
 
 	int offset;
 	char* opcode = new char[2];
@@ -39,9 +48,12 @@ int main(int argc, char *argv[]) {
 		file.seekg(offset, ios::beg);
 		file.read(opcode, 2);
 		cout << hex << setfill('0') << setw(3) << offset << "\t";
-		cout << setw(6) << hex << setfill('0') << setw(2) << +static_cast<unsigned char>(opcode[0]) << setw(2)  << +static_cast<unsigned char>(opcode[1]) << "\t" << endl;
+		cout << hex << setfill('0') << setw(2) << +static_cast<unsigned char>(opcode[0]) << setw(2)  << +static_cast<unsigned char>(opcode[1]) << "\t";
+		cout << decode(reinterpret_cast<unsigned char*>(opcode)) << endl;
 	}
 
 	delete[] opcode;
 	file.close();
+
+	return 0;
 }
