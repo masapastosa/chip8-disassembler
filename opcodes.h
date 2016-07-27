@@ -6,7 +6,7 @@
 #define   OPCODE_NOT_VALID   "Not an opcode"
 #define   OPCODE_0E0         "cls"
 #define   OPCODE_0EE         "ret"
-#define   OPCODE_1           "jp "
+#define   OPCODE_1           "jp"
 #define   OPCODE_2           "call"
 #define   OPCODE_3           "se"
 #define   OPCODE_4           "sne"
@@ -40,8 +40,8 @@
 #define   OPCODE_F65         "ld"
 
 std::string decode_0(unsigned const char*);
-std::string decode_1(unsigned const char*);/*
-std::string decode_2(char*);
+std::string decode_1(unsigned const char*);
+std::string decode_2(unsigned const char*);/*
 std::string decode_3(char*);
 std::string decode_4(char*);
 std::string decode_5(char*);
@@ -58,8 +58,8 @@ std::string decode_f(char*);
 */
 static std::string (*decode_functions[0xF])(unsigned const char*) {
 	decode_0,
-	decode_1/*,
-	decode_2,
+	decode_1,
+	decode_2/*,
 	decode_3,
 	decode_4,
 	decode_5,

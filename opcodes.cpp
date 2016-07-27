@@ -20,6 +20,13 @@ std::string decode_0(unsigned const char* opcode) {
 std::string decode_1(unsigned const char* opcode) {
 	short addr = ((opcode[0] & 0xF) << 8) + opcode[1]; //Se cojen las ultimas 3 cifras del opcode, p. ej 0x1234 -> 0x234
 	std::ostringstream decoded;
-	decoded << OPCODE_1 << "0x" << std::hex << std::setfill('0') << std::setw(3) << (addr & 0xFFF);
+	decoded << OPCODE_1 << " 0x" << std::hex << std::setfill('0') << std::setw(3) << (addr & 0xFFF);
+	return decoded.str();
+}
+
+std::string decode_2(unsigned const char* opcode) {
+	short addr = ((opcode[0] & 0xF) << 8) + opcode[1];
+	std::ostringstream decoded;
+	decoded << OPCODE_2 << " 0x" << std::hex << std::setfill('0') << std::setw(3) << (addr & 0xFFF);
 	return decoded.str();
 }
