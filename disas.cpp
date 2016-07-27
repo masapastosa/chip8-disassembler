@@ -4,12 +4,11 @@
 #include "opcodes.h"
 
 std::string decode(unsigned char *opcode) {
-	char index = opcode[0] & 0xF0 >> 4; // Primera cifra hex del primer byte
-	//if (index < 0 || index > 15) {
-	if (index != 0) {
+	char index = (opcode[0] & 0xF0) >> 4; // Primeros 4 bits del primer byte
+	if (index < 0 || index > 1) {
 		return OPCODE_NOT_VALID;
 	}
-	return decode_functions[index](opcode); // Array de funciones dependiendo de la primera cifra de la instrucci√n
+	return decode_functions[index](opcode); // Array de funciones dependiendo de los primeros 4 bits de la instruccion
 }
 std::streampos fileSize(std::ifstream& file) {
 	std::streampos fsize;
