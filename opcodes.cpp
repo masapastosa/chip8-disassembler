@@ -40,3 +40,11 @@ std::string decode_3(unsigned const char* opcode) {
 	decoded << std::setw(0) << "V" << std::hex << +reg << ", 0x" << +opcode[1];
 	return decoded.str();
 }
+
+std::string decode_4(unsigned const char* opcode) {
+	char reg = opcode[0] & 0xF;
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left << OPCODE_4;
+	decoded << std::setw(0) << "V" << std::hex << +reg << ", 0x" << +opcode[1];
+	return decoded.str();
+}
