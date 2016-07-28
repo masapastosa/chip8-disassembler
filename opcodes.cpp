@@ -78,3 +78,46 @@ std::string decode_7(unsigned const char* opcode) {
 	decoded << std::setw(0) << "V" << std::hex << +reg << ", 0x" << +opcode[1];
 	return decoded.str();
 }
+
+std::string decode_8(unsigned const char* opcode) {
+	char reg1, reg2;
+	reg1 = opcode[0] & 0xF;
+	reg2 = (opcode[1] & 0xF0) >> 4;
+
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left;
+	switch(opcode[1] & 0xF) {
+	case 0:
+		decoded << OPCODE_80;
+		break;
+	case 1:
+		decoded << OPCODE_81;
+		break;
+	case 2:
+		decoded << OPCODE_82;
+		break;
+	case 3:
+		decoded << OPCODE_83;
+		break;
+	case 4:
+		decoded << OPCODE_84;
+		break;
+	case 5:
+		decoded << OPCODE_85;
+		break;
+	case 7:
+		decoded << OPCODE_87;
+		break;
+	//Casos donde solo se tiene que printear un registro
+	case 6:
+		decoded << OPCODE_86 << std::setw(0) << "V" << std::hex << +reg1;
+		return decoded.str();
+	case 0xE:
+		decoded << OPCODE_8E << std::setw(0) << "V" << std::hex << +reg1;
+		return decoded.str();
+	default:
+		return OPCODE_NOT_VALID;
+	}
+	decoded << std::setw(0) << std::hex << "V" << +reg1 << ", V" << +reg2;
+	return decoded.str();
+}

@@ -5,7 +5,7 @@
 
 std::string decode(unsigned char *opcode) {
 	char index = (opcode[0] & 0xF0) >> 4; // Primeros 4 bits del primer byte
-	if (index < 0 || index > 7) {
+	if (index < 0 || index > 8) {
 		return OPCODE_NOT_VALID;
 	}
 	return decode_functions[index](opcode); // Array de funciones dependiendo de los primeros 4 bits de la instruccion
@@ -41,9 +41,8 @@ int main(int argc, char *argv[]) {
 	int fsize = fileSize(file);
 	cout << "File: " << argv[1] << " (" << fsize << " bytes)" << endl;
 
-	int offset;
 	char* opcode = new char[2];
-	for (offset = 0; offset < (fsize); offset += 2) {
+	for (int offset = 0; offset < (fsize); offset += 2) {
 		file.seekg(offset, ios::beg);
 		file.read(opcode, 2);
 		cout << hex << setfill('0') << setw(3) << offset << "\t";
