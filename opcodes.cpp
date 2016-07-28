@@ -150,3 +150,11 @@ std::string decode_b(unsigned const char* opcode) {
 	decoded << std::setw(0) << "V0, 0x" << std::hex << addr;
 	return decoded.str();
 }
+
+std::string decode_c(unsigned const char* opcode) {
+	char reg = opcode[0] & 0xF;
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left << OPCODE_C;
+	decoded << std::setw(0) << "V" << std::hex << +reg << ", 0x" << +opcode[1];
+	return decoded.str();
+}
