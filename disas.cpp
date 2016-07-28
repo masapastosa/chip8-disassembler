@@ -5,7 +5,7 @@
 
 std::string decode(unsigned char *opcode) {
 	char index = (opcode[0] & 0xF0) >> 4; // Primeros 4 bits del primer byte
-	if (index < 0 || index > 0xD) {
+	if (index < 0 || index > 0xE) {
 		return OPCODE_NOT_VALID;
 	}
 	return decode_functions[index](opcode); // Array de funciones dependiendo de los primeros 4 bits de la instruccion

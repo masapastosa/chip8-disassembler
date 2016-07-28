@@ -170,3 +170,19 @@ std::string decode_d(unsigned const char* opcode) {
 	decoded << std::setw(0) << std::hex << "V" << +reg1 << ", V" << +reg2 << ", 0x" << +nibble;
 	return decoded.str();
 }
+
+std::string decode_e(unsigned const char* opcode) {
+	char reg = opcode[0] & 0xF;
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left;
+	switch(opcode[1]) {
+	case 0x9E:
+		decoded << OPCODE_E9E;
+		break;
+	case 0xA1:
+		decoded << OPCODE_EA1;
+		break;
+	}
+	decoded << std::setw(0) << "V" << std::hex << +reg;
+	return decoded.str();
+}
