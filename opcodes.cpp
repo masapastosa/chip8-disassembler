@@ -142,3 +142,11 @@ std::string decode_a(unsigned const char* opcode) {
 	decoded << std::setw(0) << "I, 0x" << std::hex << addr;
 	return decoded.str();
 }
+
+std::string decode_b(unsigned const char* opcode) {
+	short addr = ((opcode[0] & 0xF) << 8) + opcode[1];
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left << OPCODE_B;
+	decoded << std::setw(0) << "V0, 0x" << std::hex << addr;
+	return decoded.str();
+}
