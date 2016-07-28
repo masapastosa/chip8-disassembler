@@ -62,3 +62,11 @@ std::string decode_5(unsigned const char* opcode) {
 	decoded << std::setw(0) << "V" << std::hex << +reg1 << ", V" << +reg2;
 	return decoded.str();
 }
+
+std::string decode_6(unsigned const char* opcode) {
+	char reg = opcode[0] & 0xF;
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left << OPCODE_6;
+	decoded << std::setw(0) << "V" << std::hex << +reg << ", 0x" << +opcode[1];
+	return decoded.str();
+}

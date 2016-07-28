@@ -44,8 +44,8 @@ std::string decode_1(unsigned const char*);
 std::string decode_2(unsigned const char*);
 std::string decode_3(unsigned const char*);
 std::string decode_4(unsigned const char*);
-std::string decode_5(unsigned const char*);/*
-std::string decode_6(char*);
+std::string decode_5(unsigned const char*);
+std::string decode_6(unsigned const char*);/*
 std::string decode_7(char*);
 std::string decode_8(char*);
 std::string decode_9(char*);
@@ -62,8 +62,8 @@ static std::string (*decode_functions[0xF])(unsigned const char*) {
 	decode_2,
 	decode_3,
 	decode_4,
-	decode_5/*,
-	decode_6,
+	decode_5,
+	decode_6/*,
 	decode_7,
 	decode_8,
 	decode_9,
