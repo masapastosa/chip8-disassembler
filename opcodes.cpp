@@ -158,3 +158,15 @@ std::string decode_c(unsigned const char* opcode) {
 	decoded << std::setw(0) << "V" << std::hex << +reg << ", 0x" << +opcode[1];
 	return decoded.str();
 }
+
+std::string decode_d(unsigned const char* opcode) {
+	char reg1, reg2, nibble;
+	reg1 = opcode[0] & 0xF;
+	reg2 = (opcode[1] & 0xF0) >> 4;
+	nibble = opcode[1] & 0xF;
+
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left << OPCODE_D;
+	decoded << std::setw(0) << std::hex << "V" << +reg1 << ", V" << +reg2 << ", 0x" << +nibble;
+	return decoded.str();
+}
