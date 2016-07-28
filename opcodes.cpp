@@ -48,3 +48,17 @@ std::string decode_4(unsigned const char* opcode) {
 	decoded << std::setw(0) << "V" << std::hex << +reg << ", 0x" << +opcode[1];
 	return decoded.str();
 }
+
+std::string decode_5(unsigned const char* opcode) {
+	if ((opcode[1] & 0xF) != 0) {
+		return OPCODE_NOT_VALID;
+	}
+	char reg1, reg2;
+	reg1 = opcode[0] & 0xF;
+	reg2 = (opcode[1] & 0xF0) >> 4;
+
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left << OPCODE_5;
+	decoded << std::setw(0) << "V" << std::hex << +reg1 << ", V" << +reg2;
+	return decoded.str();
+}
