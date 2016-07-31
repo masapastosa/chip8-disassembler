@@ -11,7 +11,7 @@ std::string decode_0(unsigned const char* opcode) {
 	case 0xE0:
 		return OPCODE_0E0;
 	case 0xEE:
-		return OPCODE_0EE;	
+		return OPCODE_0EE;
 	default:
 		return OPCODE_NOT_VALID;
 	}

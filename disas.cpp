@@ -12,12 +12,12 @@ std::string decode(unsigned char *opcode) {
 }
 std::streampos fileSize(std::ifstream& file) {
 	std::streampos fsize;
-	
+
 	fsize = file.tellg();
 	file.seekg(0, std::ios::end);
-	
+
 	fsize = file.tellg() - fsize;
-	
+
 	file.seekg(0, std::ios::beg);
 	return fsize;
 }
