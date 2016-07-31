@@ -26,8 +26,16 @@ int main(int argc, char *argv[]) {
 	using namespace std;
 
 	if (argc < 2) {
-		cout << "Usage:\n\t" << argv[0] << " <file>" << endl;
+		cout << "Usage:\n\t" << argv[0] << " <file> [<offset>]" << endl;
 		return 1;
+	}
+	int initial_offset = 0;
+	if (argc > 2) {
+		initial_offset = std::atoi(argv[2]);
+		if (initial_offset < 0 || (initial_offset % 2) != 0) {
+			cout << "El offset inicial tiene que ser mayor que 0 y multiplo de 2" << endl;
+			return 1;
+		}
 	}
 
 	ifstream file;
@@ -42,7 +50,7 @@ int main(int argc, char *argv[]) {
 	cout << "File: " << argv[1] << " (" << fsize << " bytes)" << endl;
 
 	unsigned char* opcode = new unsigned char[2];
-	for (int offset = 0; offset < (fsize); offset += 2) {
+	for (int offset = initial_offset; offset < (fsize); offset += 2) {
 		file.seekg(offset, ios::beg);
 		file.read(reinterpret_cast<char*>(opcode), 2);
 		cout << hex << setfill('0') << setw(3) << offset << "\t";
