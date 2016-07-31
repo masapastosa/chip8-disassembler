@@ -41,13 +41,13 @@ int main(int argc, char *argv[]) {
 	int fsize = fileSize(file);
 	cout << "File: " << argv[1] << " (" << fsize << " bytes)" << endl;
 
-	char* opcode = new char[2];
+	unsigned char* opcode = new unsigned char[2];
 	for (int offset = 0; offset < (fsize); offset += 2) {
 		file.seekg(offset, ios::beg);
-		file.read(opcode, 2);
+		file.read(reinterpret_cast<char*>(opcode), 2);
 		cout << hex << setfill('0') << setw(3) << offset << "\t";
-		cout << hex << setfill('0') << setw(2) << +static_cast<unsigned char>(opcode[0]) << setw(2)  << +static_cast<unsigned char>(opcode[1]) << "\t";
-		cout << decode(reinterpret_cast<unsigned char*>(opcode)) << endl;
+		cout << hex << setfill('0') << setw(2) << +opcode[0] << setw(2)  << +opcode[1] << "\t";
+		cout << decode(opcode) << endl;
 	}
 
 	delete[] opcode;
