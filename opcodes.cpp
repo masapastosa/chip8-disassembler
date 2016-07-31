@@ -186,3 +186,42 @@ std::string decode_e(unsigned const char* opcode) {
 	decoded << std::setw(0) << "V" << std::hex << +reg;
 	return decoded.str();
 }
+
+std::string decode_f(unsigned const char* opcode) {
+	char reg = opcode[0] & 0xF;
+	std::ostringstream decoded;
+	decoded << std::setw(7) << std::left;
+	switch(+opcode[1]) {
+	case 0x7:
+		decoded << OPCODE_F07 << std::setw(0) << std::hex << "V" << +reg << ", DT";
+		break;
+	case 0xA:
+		decoded << OPCODE_F0A << std::setw(0) << std::hex << "V" << +reg << ", K";
+		break;
+	case 0x15:
+		decoded << OPCODE_F15 << std::setw(0) << std::hex << "DT, V" << +reg;
+		break;
+	case 0x18:
+		decoded << OPCODE_F18 << std::setw(0) << std::hex << "ST, V" << +reg;
+		break;
+	case 0x1E:
+		decoded << OPCODE_F1E << std::setw(0) << std::hex << "I, V" << +reg;
+		break;
+	case 0x29:
+		decoded << OPCODE_F29 << std::setw(0) << std::hex << "F, V" << +reg;
+		break;
+	case 0x33:
+		decoded << OPCODE_F33 << std::setw(0) << std::hex << "B, V" << +reg;
+		break;
+	case 0x55:
+		decoded << OPCODE_F55 << std::setw(0) << std::hex << "[I], V" << +reg;
+		break;
+	case 0x65:
+		decoded << OPCODE_F65 << std::setw(0) << std::hex << "V" << +reg << ", [I]";
+		break;
+	default:
+		return OPCODE_NOT_VALID;
+	}
+	return decoded.str();
+}
+

@@ -1,6 +1,8 @@
 #ifndef OPCODES_H
 #define OPCODES_H
 
+#include <functional>
+
 //http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#3.1
 //Opcode SYS no implementado ya que no es usado actualmente
 #define   OPCODE_NOT_VALID   "Not an opcode"
@@ -53,10 +55,10 @@ std::string decode_a(unsigned const char*);
 std::string decode_b(unsigned const char*);
 std::string decode_c(unsigned const char*);
 std::string decode_d(unsigned const char*);
-std::string decode_e(unsigned const char*);/*
-std::string decode_f(char*);
-*/
-static std::string (*decode_functions[0xF])(unsigned const char*) {
+std::string decode_e(unsigned const char*);
+std::string decode_f(unsigned const char*);
+
+static std::function<std::string(unsigned const char*)> decode_functions[0x10] = {
 	decode_0,
 	decode_1,
 	decode_2,
@@ -71,7 +73,7 @@ static std::string (*decode_functions[0xF])(unsigned const char*) {
 	decode_b,
 	decode_c,
 	decode_d,
-	decode_e/*,
-	decode_f*/
+	decode_e,
+	decode_f
 };
 #endif
